@@ -45,4 +45,4 @@ type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80 #service-poart
-      targetPort: 80 #container-port
+      targetPort: 80  #container-port
