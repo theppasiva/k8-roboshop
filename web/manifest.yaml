@@ -12,7 +12,7 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLabels: # these labels are used to find the pods
+    matchLabels:  # these labels are used to find the pods
       app: web
       project: roboshop
       tier: web
