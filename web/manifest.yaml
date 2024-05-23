@@ -6,20 +6,20 @@ metadata:
   name: web
   namespace: roboshop
   labels: #these labels are deployment labels
-    web: web
+    app: web
     project: roboshop
     tier: web
 spec:
   replicas: 1
   selector:
     matchLabels: # these labels are used to find the pods
-      web: web
+      app: web
       project: roboshop
       tier: web
   template:
     metadata:
       labels: # these labels are pod labels
-        web: web
+        app: web
         project: roboshop
         tier: web
     spec:
@@ -39,7 +39,7 @@ metadata:
 spec:
 type: LoadBalancer
   selector:
-    web: web
+    app: web
     project: roboshop
     tier: web
   ports:
