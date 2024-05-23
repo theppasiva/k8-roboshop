@@ -93,14 +93,14 @@ kind: Deployment
 metadata:
   name: web
   namespace: roboshop
-  labels: #these labels are deployment labels
+  labels: # these labels are deployment labels
     app: web
     project: roboshop
     tier: web
 spec:
   replicas: 1
   selector:
-    matchLabels:  # these labels are used to find the pods
+    matchLabels: # these labels are used to find the pods
       app: web
       project: roboshop
       tier: web
@@ -112,13 +112,6 @@ spec:
         tier: web
     spec:
       containers:
-      volumes:
-      - name: nginx-conf
-        configMap:
-          name: nginx-conf
-          items:
-          - key: nginx.conf
-            path: nginx.conf
       - name: web
         image: theppasiva/web:v1
         imagePullPolicy: Always
@@ -127,7 +120,13 @@ spec:
           mountPath: /etc/nginx/nginx.conf
           subPath: nginx.conf
           readOnly: true
-        
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: web
+          items:
+            - key: nginx.conf
+              path: nginx.conf
 ---
 apiVersion: v1
 kind: Service
@@ -141,6 +140,6 @@ spec:
     project: roboshop
     tier: web
   ports:
-    - protocol: TCP
-      port: 80 #service-poart
-      targetPort: 80  #container-port
+  - protocol: TCP
+    port: 80 #service-port
+    targetPort: 80 #container-port
