@@ -1,0 +1,48 @@
+
+---
+apiVersion: webs/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: roboshop
+  labels: #these labels are deployment labels
+    web: web
+    project: roboshop
+    tier: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels: # these labels are used to find the pods
+      web: web
+      project: roboshop
+      tier: web
+  template:
+    metadata:
+      labels: # these labels are pod labels
+        web: web
+        project: roboshop
+        tier: web
+    spec:
+      containers:
+      - name: web
+        image: theppasiva/web:v1
+        imagePullPolicy: Always
+        # envFrom:
+        # - configMapRef:
+        #     name: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: roboshop
+spec:
+type: LoadBalancer
+  selector:
+    web: web
+    project: roboshop
+    tier: web
+  ports:
+    - protocol: TCP
+      port: 80 #service-poart
+      targetPort: 80 #container-port
